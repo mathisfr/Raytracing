@@ -2,6 +2,8 @@
 
 Une petite implémentation du ray tracing en Python.
 
+![Raytracing utilisant Python](output.jpg)
+
 ## Installation
 
 ### Windows
