@@ -3,7 +3,6 @@ from typing import overload
 from typing import Self
 from math import pow, sqrt
 from . import randomMinMax
-import random
 
 class Vector3:
     def __init__(self, x: float, y: float, z: float) -> None:

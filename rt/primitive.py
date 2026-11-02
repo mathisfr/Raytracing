@@ -3,6 +3,7 @@ from __future__ import annotations
 from .hittable import Hittable, Hit_record
 from .vector3 import Vector3
 from .interval import Interval
+from .material import Material
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
@@ -11,9 +12,10 @@ if TYPE_CHECKING:
 from math import sqrt
 
 class Sphere(Hittable):
-    def __init__(self, radius = 1.0, center = Vector3(0.0,0.0,-1.0)):
+    def __init__(self, radius = 1.0, center = Vector3(0.0,0.0,-1.0), material: Material = None):
         self.radius = radius
         self.center = center
+        self.material : Material = material
     def hit(self, ray: Ray, interval: Interval, hit: Hit_record):
         cq = self.center - ray.origin
         a = ray.direction.magnitudeSquared()
@@ -34,5 +36,6 @@ class Sphere(Hittable):
         hit.point.copy(ray.at(root))
         outward_normal = (hit.point - self.center) / self.radius
         hit.set_face_normal(ray, outward_normal)
+        hit.material = self.material
 
         return True

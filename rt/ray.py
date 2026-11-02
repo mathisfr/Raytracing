@@ -8,3 +8,6 @@ class Ray:
         self.direction = direction
     def at(self, t) -> Vector3:
         return self.origin + (self.direction * t)
+    def copy(self, other: Ray):
+        self.origin.copy(other.origin)
+        self.direction.copy(other.direction)

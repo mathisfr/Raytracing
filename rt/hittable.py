@@ -4,6 +4,7 @@ from abc import ABC, abstractmethod
 
 from .vector3 import Vector3
 from .interval import Interval
+from .material import Material
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
@@ -20,11 +21,13 @@ class Hit_record:
         self.normal = normal if normal is not None else Vector3(0.0, 0.0, 0.0)
         self.distanceFromRayOrigin = distanceFromRayOrigin
         self.front_face = None
+        self.material: Material = None
     def copy(self, other: Hit_record):
         self.point.copy(other.point)
         self.normal.copy(other.normal)
         self.distanceFromRayOrigin = other.distanceFromRayOrigin
         self.front_face = other.front_face
+        self.material = other.material
     def set_face_normal(self, ray: Ray, outward_normal: Vector3):
         self.front_face = ray.direction.dot(outward_normal) < 0
         if self.front_face:

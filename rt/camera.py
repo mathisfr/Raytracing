@@ -13,7 +13,7 @@ import threading
 import time
 
 class Camera:
-    def __init__(self, image_height:float = 400):
+    def __init__(self, image_height:float = 200):
         self.origin = Vector3(0.0,0.0,0.0)
         self.focal = 1.0
         self.ratio = 16/9
@@ -42,9 +42,12 @@ class Camera:
         hit = Hit_record()
         isHit = world.hit(ray, Interval(0.001, INFINITY), hit)
         if isHit:
-            randomDirection = hit.normal + Vector3.randomSphericalUnitVector()
-            ray_color = Camera.ray_color(Ray(hit.point, randomDirection), world, depth-1)
-            return Color3(0.5 * ray_color.x,0.35* ray_color.y,0.1* ray_color.z) 
+            attenuation: Color3 = Color3(0.0,0.0,0.0)
+            scattered: Ray = Ray(Vector3(0.0,0.0,0.0), Vector3(0.0,0.0,0.0))
+            if (hit.material.scatter(ray, hit, attenuation, scattered)):
+                ray_color = Camera.ray_color(scattered, world, depth-1)
+                return Color3(attenuation.x * ray_color.x, attenuation.y * ray_color.y, attenuation.z * ray_color.z) 
+            return Color3(0.0,0.0,0.0)
             # normalUnitVector = (hit.normal + Vector3(1.0, 1.0, 1.0)) * 0.5
             # return Color3(normalUnitVector.x, normalUnitVector.y, normalUnitVector.z)
         
