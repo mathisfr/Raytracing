@@ -13,7 +13,7 @@ import threading
 import time
 
 class Camera:
-    def __init__(self, image_height:float = 200):
+    def __init__(self, image_height:float = 400):
         self.origin = Vector3(0.0,0.0,0.0)
         self.focal = 1.0
         self.ratio = 16/9

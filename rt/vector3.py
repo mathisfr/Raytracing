@@ -75,8 +75,7 @@ class Vector3:
     def __lt__(self, other: Vector3) -> Self:
         return (self.x < other.x) and (self.y < other.y) and (self.z < other.z)
     def __neg__(self) -> Self:
-        self *= -1
-        return self
+        return Vector3(-self.x, -self.y, -self.z)
 
     def magnitudeSquared(self) -> float:
         return pow(self.x, 2) + pow(self.y, 2) + pow(self.z, 2)
